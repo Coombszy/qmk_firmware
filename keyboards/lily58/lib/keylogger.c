@@ -14,9 +14,16 @@ const char code_to_name[60] = {
     ' ', ';', '\'', ' ', ',', '.', '/', ' ', ' ', ' '};
 
 void set_keylog(uint16_t keycode, keyrecord_t *record) {
-  char name = ' ';
-  if (keycode < 60) {
-    name = code_to_name[keycode];
+  // If not in name map, skip
+  if (keycode >= 60) {
+    return;
+  }
+
+  char name = code_to_name[keycode];
+
+  // Do not include empties
+  if (name == ' ') {
+    return;
   }
 
   // update keylog
